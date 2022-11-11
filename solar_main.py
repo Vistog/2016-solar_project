@@ -127,12 +127,13 @@ def main():
     start_button.pack(side=tkinter.LEFT)
 
     time_step = tkinter.DoubleVar()
-    time_step.set(10)
+    time_step.set(100)
     time_step_entry = tkinter.Entry(frame, textvariable=time_step)
     time_step_entry.pack(side=tkinter.LEFT)
 
     time_speed = tkinter.DoubleVar()
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
+    scale.configure(to=100)
     scale.pack(side=tkinter.LEFT)
 
     load_file_button = tkinter.Button(frame, text="Open file...", command=open_file_dialog)
