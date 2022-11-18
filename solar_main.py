@@ -82,6 +82,7 @@ def open_file_dialog():
     space_objects = read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
+    renorm()
 
     for obj in space_objects:
         if obj.type == 'star':
@@ -148,6 +149,25 @@ def main():
 
     root.mainloop()
     print('Modelling finished!')
+
+def renorm():
+    """
+    Функция пересчитывает скорости так, чтобы центр масс системы покоился.
+    """
+    px = 0
+    py = 0
+    mb = 0
+    global space_objects
+    for obj in space_objects:
+        px += obj.Vx * obj.m
+        py += obj.Vy * obj.m
+        mb += obj.m
+    Vx = px / mb
+    Vy = py / mb
+
+    for obj in space_objects:
+        obj.Vx -= Vx
+        obj.Vy -= Vy
 
 if __name__ == "__main__":
     main()
